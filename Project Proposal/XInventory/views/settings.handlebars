@@ -1,0 +1,60 @@
+{{#each errors}}
+    <div class="alert alert-danger">{{text}}</div>
+
+{{else}}
+
+{{/each}}
+
+<div class="jumbotron text-left">
+        <form action="/settings" method="POST">
+          <div class="form-row">
+
+            <div class="form-group col-md-2">
+              <label for="inputYear">Year</label>
+              <select name="inputYear" id="inputYear" class="form-control">
+                <option value="all">All</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="inputMake">Make</label>
+              <select name="inputMake" id="inputMake" class="form-control">
+                <option value="all">All</option>
+                <option value="chrysler">Chrysler</option>
+                <option value="dodge">Dodge</option>
+                <option value="jeep">Jeep</option>
+                <option value="ram">Ram</option>
+                <option value="chevrolet">Chevrolet</option>
+              </select>
+              </div>
+            
+             <div class="form-group col-md-3">
+              <label for="inputModel">Model</label>
+              <select name="inputModel" id="inputModel" class="form-control">
+                <option value="all">All</option>
+                <option value="chrysler">Chrysler</option>
+                <option value="dodge">Dodge</option>
+                <option value="jeep">Jeep</option>
+                <option value="ram">Ram</option>
+                <option value="chevrolet">Chevrolet</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-3">
+              <label for="inputModel">Month Supply</label>
+              <select name="inputYear" id="inputModel" class="form-control">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+            
+          </div>
+          <button type="submit" class="btn btn-primary btn-md btn-block">Submit Settings</button>
+        </form> 
+</div>
