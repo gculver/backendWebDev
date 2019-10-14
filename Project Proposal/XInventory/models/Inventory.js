@@ -14,31 +14,31 @@ const IventorySchema = new Schema({
     },
     VinNumber: {
         type: Number,
-        required: true
+        required: false
     },
     Class: {
         type: String,
-        required: true
+        required: false
     },
     Age: {
         type: Number,
-        required: true
+        required: false
     },
     Body: {
         type: String,
-        required: true
+        required: false
     },
     Color: {
         type: String,
-        required: true
+        required: false
     },
     Disp: {
         type: String,
-        required: true
+        required: false
     },
     Cost: {
         type: Number,
-        required: true
+        required: false
     }, 
     Odometer: {
         type: Number,
