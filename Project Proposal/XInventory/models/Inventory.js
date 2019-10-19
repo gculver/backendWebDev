@@ -4,16 +4,28 @@ const Schema = mongoose.Schema;
 
 // Create Invetory Schema
 const IventorySchema = new Schema({
-    Vehicle: {
+    Make: {
         type: String, 
         required: true
+    },
+    Year: {
+        type: Number,
+        required: true
+    },
+    Model: {
+        type: String,
+        required: true
+    },
+    Trim: {
+        type: String,
+        required: false
     },
     StockNumber: {
         type: String,
         required: true
     },
     VinNumber: {
-        type: Number,
+        type: String,
         required: false
     },
     Class: {
@@ -21,7 +33,7 @@ const IventorySchema = new Schema({
         required: false
     },
     Age: {
-        type: Number,
+        type: String,
         required: false
     },
     Body: {
@@ -37,11 +49,11 @@ const IventorySchema = new Schema({
         required: false
     },
     Cost: {
-        type: Number,
+        type: String,
         required: false
     }, 
     Odometer: {
-        type: Number,
+        type: String,
         required: false
     }
 

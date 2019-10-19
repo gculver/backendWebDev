@@ -1,0 +1,33 @@
+
+<table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Make</th>
+                <th scope="col">Model</th>
+                <th scope="col">Units In Inventory</th>
+                <th scope="col">Model Units</th>
+                <th scope="col">Difference</th>
+            </tr>
+            <tbody>
+                
+{{#each results}}
+            <tr>
+                <td>{{make}}</td>
+                <td>{{_id}}</td>
+                <td>{{num_products}}</td>
+                <td>TBD</td>
+                <td>TBD</td>
+            </tr>
+    <!--<div class="card card-body mb-2">
+
+        <h4>{{make}} {{_id}} {{num_products}}</h4>
+        
+    </div>-->
+
+{{else}}
+    <p>No Inventory To Display.</p>
+{{/each}}
+                
+            </tbody>
+        </thead>
+    </table>

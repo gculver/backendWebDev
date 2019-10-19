@@ -1,1 +1,11 @@
-<h1>Whaala Inventory Page</h1>
+
+{{#each inventory}}
+    <div class="card card-body mb-2">
+        <h4>{{Year}} {{Make}} {{Model}}</h4>
+        <p>{{StockNumber}}</p>
+        <p>{{VinNumber}}</p>
+    </div>
+
+{{else}}
+    <p>No Inventory To Display.</p>
+{{/each}}
