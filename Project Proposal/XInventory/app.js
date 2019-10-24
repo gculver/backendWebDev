@@ -6,6 +6,10 @@ const readFile = require('fs').readFile;
 const flash = require('connect-flash');
 const session = require('express-session');
 const path = require('path');
+const passport = require('passport');
+
+// Load helper 
+const {ensureAuthenticated} = require('./helpers/auth');
 
 const app = express();
 
@@ -13,6 +17,8 @@ const app = express();
 const inventory = require('./routes/inventory');
 const users = require('./routes/users');
 
+// Passport Config
+require('./config/passport')(passport);
 
 // Mongoose Connection
 mongoose.connect('mongodb://localhost/Xinventory', {
@@ -51,37 +57,38 @@ app.use(session({
     saveUninitialized: true
 }));
 
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(flash());
 
 // Global Variables
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
+    res.locals.user = req.user || null;
     next();
 });
 
 // Index Route
-app.get('/', (req, res) => {
-    const title = '10X Inventory';
-    res.render('index', {
-        title: title
-    });
+app.get('/', ensureAuthenticated, (req, res) => {
+    res.render('index');
 });
 
 // Settings Route
-app.get('/settings', (req, res) => {
+app.get('/settings', ensureAuthenticated,  (req, res) => {
     res.render('settings');
 });
 
 // Process Settings Form
-app.post('/settings', (req, res) => {
+app.post('/settings', ensureAuthenticated, (req, res) => {
     // Server side validation
     let errors = [];
     if(req.body.allYears) {
         errors.push({ text: 'Please Fill Out Form Correctly'});
     }
-    
     if(errors.length > 0) {
         res.render('settings', {
             errors: errors,
@@ -99,13 +106,9 @@ app.post('/settings', (req, res) => {
             console.log('body' + req.body);
             req.flash('success_msg', 'Settings Successfully Updated')
             res.redirect('/inventory');
-        });
-        
+        });  
     }
 });
-
-
-
 
 // User Routes 
 app.use('/inventory', inventory);
@@ -113,8 +116,6 @@ app.use('/users', users);
 
 // Local Development Port
 const port = 5000;
-
-
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

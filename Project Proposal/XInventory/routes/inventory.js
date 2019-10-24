@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const csv = require('csvtojson');
 
+// Load helper 
+const {ensureAuthenticated} = require('../helpers/auth');
+
 // Below used to upload file form
 const storage = multer.diskStorage({
     destination: function(req,file, cb) {
@@ -13,7 +16,6 @@ const storage = multer.diskStorage({
     }
 });
 
-//const upload = multer({ dest: 'uploads/'});
 const upload = multer ({ storage: storage });
 const type = upload.single('inventoryFile');
 const csvFilePath = './uploads/inventoryFile';
@@ -24,7 +26,7 @@ require('../models/Inventory');
 const Inventory = mongoose.model('inventory');
 
 // Inventory Route
-router.get('/', (req, res) => {
+router.get('/', ensureAuthenticated, (req, res) => {
     Inventory.find({})
     .sort({StockNumber: 'desc'})
     .then(inventory => {
@@ -35,19 +37,30 @@ router.get('/', (req, res) => {
 });
 
 // Add Inventory Route
-router.get('/add', (req, res) => {
+router.get('/add', ensureAuthenticated, (req, res) => {
     res.render('inventory/add');
 });
 
 // Add Inventory Route
-router.get('/addInventory', (req, res) => {
+router.get('/addInventory', ensureAuthenticated, (req, res) => {
     res.render('inventory/addInventory');
 });
 
-// Add inventory Counts to Form
-router.get('/displayInventory', (req, res) => {
+// Add POST method inventory page after login
+router.post('/displayInventory', ensureAuthenticated, (req, res) => {
     Inventory.aggregate([
-   
+    { $group: {_id: "$Model", make: {$first: "$Make"}, num_products: {"$sum":1 }}}
+    ],
+    function(err, results) {
+        console.log(results);
+        res.render('inventory/displayInventory', { results })
+    });
+});
+
+// Add inventory Counts to Form
+router.get('/displayInventory', ensureAuthenticated, (req, res) => {
+    Inventory.aggregate([
+
     { $group: {_id: "$Model", make: {$first: "$Make"}, num_products: {"$sum":1 }}}
     
     ],
@@ -57,20 +70,7 @@ router.get('/displayInventory', (req, res) => {
     });
 });
 
-/*
-// Add Inventory To Form
-router.get('/displayInventory', (req, res) => {
-    Inventory.find({})
-    .sort({StockNumber: 'desc'})
-    .then(inventory => {
-        res.render('inventory/displayInventory', {
-            inventory:inventory
-        });
-    });
-    
-});
-*/
-router.post('/', type, function(req, res) {
+router.post('/', ensureAuthenticated, type, function(req, res) {
     csv()
         .fromFile(csvFilePath)
         .then((jsonObj) => {

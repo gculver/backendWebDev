@@ -4,6 +4,9 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const router = express.Router();
 
+// Load helper 
+const {ensureAuthenticated} = require('../helpers/auth');
+
 // Load User Model
 require('../models/User');
 const User = mongoose.model('users');
@@ -18,6 +21,15 @@ router.get('/login', (req, res) => {
     res.render('users/login');
 });
 
+// Login Form Post
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/inventory/displayInventory',
+        failureRedirect: '/users/login',
+        failureFlash: true
+    })(req, res, next);
+});
+
 // Register Form POST
 router.post('/register', (req, res) => {
     let errors = [];
@@ -29,20 +41,20 @@ router.post('/register', (req, res) => {
         errors.push({text: 'Password must be atleast 4 characters'});
     }
     if(errors.length > 0) {
-        res.render('users/register', ({
+        res.render('users/register', {
             errors: errors,
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
             password2: req.body.password2
-        }));
+        });
     } else {
         User.findOne({email:req.body.email})
             .then(user => {
                 if(user) {
                     req.flash('error_msg', 'EMail is already registered');
                     res.redirect('/users/register');
-                }else {  
+                } else {  
                     const newUser = new User({
                         name: req.body.name,
                         email: req.body.email,
@@ -67,6 +79,13 @@ router.post('/register', (req, res) => {
                 }
             });
         }         
+});
+
+// Logout User
+router.get('/logout', ensureAuthenticated, (req, res) => {
+    req.logout();
+    req.flash('success_msg','You are logged out');
+    res.redirect('/users/login');
 });
 
 module.exports = router;

@@ -56,7 +56,6 @@ const IventorySchema = new Schema({
         type: String,
         required: false
     }
-
 });
 
 mongoose.model('inventory', IventorySchema );
