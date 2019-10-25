@@ -8,6 +8,9 @@ const session = require('express-session');
 const path = require('path');
 const passport = require('passport');
 
+// DB Config
+const db = require('./config/database');
+
 // Load helper 
 const {ensureAuthenticated} = require('./helpers/auth');
 
@@ -21,7 +24,7 @@ const users = require('./routes/users');
 require('./config/passport')(passport);
 
 // Mongoose Connection
-mongoose.connect('mongodb://localhost/Xinventory', {
+mongoose.connect(db.mongoURI, {
     useMongoClient: true
 })
 .then( () => 
@@ -115,7 +118,7 @@ app.use('/inventory', inventory);
 app.use('/users', users);
 
 // Local Development Port
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
