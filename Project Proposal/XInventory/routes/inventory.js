@@ -61,7 +61,8 @@ router.post('/displayInventory', ensureAuthenticated, (req, res) => {
 router.get('/displayInventory', ensureAuthenticated, (req, res) => {
     Inventory.aggregate([
 
-    { $group: {_id: "$Model", make: {$first: "$Make"}, num_products: {"$sum":1 }}}
+    { $group: {_id: "$Model", make: {$first: "$Make"}, num_products: {"$sum":1 }}},
+    {$sort: {make: 1, _id: 1} },
     
     ],
     function(err, results) {
@@ -96,8 +97,7 @@ router.post('/', ensureAuthenticated, type, function(req, res) {
                     Odometer: jsonObj[i]["Odometer"]
                 };
         new Inventory(newInventory)
-            .save()
-            
+            .save() 
     }  
 })
     req.flash('success_msg', 'Inventory Uploaded Successfully');
