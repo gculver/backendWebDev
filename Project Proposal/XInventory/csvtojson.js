@@ -1,7 +1,11 @@
+var express = require('express');
+var multer = require('multer');
+var upload = multer({ dest: 'uploads/'});
+const csvFilePath = './soldInventory.csv';
+const csv = require('csvtojson');
 
-
-const csvFilePath = './inventory.csv';
-const csv = require('csvtojson')
+var app = express();
+var upload = upload.single('soldInventory.csv');
 csv()
 .fromFile(csvFilePath)
 .then((jsonObj) => {

@@ -5,18 +5,20 @@
                 <th scope="col">Make</th>
                 <th scope="col">Model</th>
                 <th scope="col">Units In Inventory</th>
-                <th scope="col">Model Units</th>
-                <th scope="col">Difference</th>
+                <th scope="col">Units Sold Last 90 Days</th>
+                <th scope="col">Desired Month Supply</th>
+                <th scope="col">Inventory Position</th>
             </tr>
             <tbody>
                 
 {{#each results}}
             <tr>
                 <td>{{make}}</td>
-                <td>{{_id}}</td>
+                <td><a href="#">{{_id}}</a></td>
                 <td>{{num_products}}</td>
-                <td>TBD</td>
-                <td>TBD</td>
+                <td>{{sold}}</td>
+                <td>{{subtraction sold}}</td>
+                <td>{{inventoryPosition num_products sold}}</td>
             </tr>
     <!--<div class="card card-body mb-2">
 

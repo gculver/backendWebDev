@@ -14,6 +14,9 @@ const db = require('./config/database');
 // Load helper 
 const {ensureAuthenticated} = require('./helpers/auth');
 
+// HandleBars helpers
+const subtraction = require('./helpers/subtraction');
+
 const app = express();
 
 // Load Routes
@@ -49,6 +52,24 @@ app.set('view engine', 'handlebars');
 // Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Handlebars Middleware
+app.engine('handlebars',exphbs ({
+    helpers:
+    { 
+        inventoryPosition: function(num_sold, sold) 
+        { 
+            return Math.ceil(((sold / 3 * 4) - num_sold));
+        },
+    
+        subtraction: function(b) 
+        { 
+            return Math.ceil((b / 3 * 4));
+        }
+    },
+    defaultLayout: 'main'
+}));
+app.set('view engine', 'handlebars');
 
 // Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -112,6 +133,8 @@ app.post('/settings', ensureAuthenticated, (req, res) => {
         });  
     }
 });
+
+
 
 // User Routes 
 app.use('/inventory', inventory);
