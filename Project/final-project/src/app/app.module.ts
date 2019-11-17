@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { MatSelectModule, MatCardModule, MatButtonModule, MatToolbarModule, MatTableModule, MatInputModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { DisplayInventoryComponent } from './views/inventory/display-inventory/display-inventory.component';
 import { AddInventoryComponent } from './views/inventory/add-inventory/add-inventory.component';
@@ -27,7 +27,8 @@ import { FormsModule } from '@angular/forms';
     MatTableModule,
     MatInputModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
 
   ],
   providers: [],

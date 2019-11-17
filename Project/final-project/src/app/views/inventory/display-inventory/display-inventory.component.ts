@@ -3,13 +3,6 @@ import { Inventory } from '../inventory.model';
 import { InventoryService } from '../inventory.service';
 import { Subscription } from 'rxjs';
 
-
-// const ELEMENT_DATA: InventoryData[] = [
-//   {Make: 'chevy', Model: 'Tahoe'},
-//   {Make: 'chevy', Model: 'Tahoe'},
-//   {Make: 'chevy', Model: 'Tahoe'},
-//   {Make: 'chevy', Model: 'Tahoe'}
-// ];
 @Component({
   selector: 'app-display-inventory',
   templateUrl: './display-inventory.component.html',
@@ -17,8 +10,8 @@ import { Subscription } from 'rxjs';
 })
 export class DisplayInventoryComponent implements OnInit, OnDestroy {
 
-inventory: Inventory[] = [];
-private inventorySub: Subscription;
+  inventory: Inventory[] = [];
+  private inventorySub: Subscription;
 
 displayedColumns: string[] = ['make', 'model'];
 dataSource = this.inventory;
@@ -26,7 +19,7 @@ dataSource = this.inventory;
 constructor(public inventoryService: InventoryService ) {}
 
   ngOnInit() {
-    this.inventory = this.inventoryService.getInventory();
+    this.inventoryService.getInventory();
     this.inventorySub = this.inventoryService.getInventoryUpdateListener()
       .subscribe((inventory: Inventory[]) => {
         this.inventory = inventory;

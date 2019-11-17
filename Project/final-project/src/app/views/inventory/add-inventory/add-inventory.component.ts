@@ -21,6 +21,7 @@ export class AddInventoryComponent implements OnInit {
       return;
     }
     this.inventoryService.addInventory(form.value.year, form.value.make, form.value.model, form.value.stockNumber);
+    form.resetForm();
   }
 
   ngOnInit() {
