@@ -24,8 +24,11 @@ export class InventoryService {
 
   addInventory( make: string, model: string, year: number, stockNumber: string ) {
     const newInventory: Inventory = {id: null, make, model, year, stockNum: stockNumber};
-    this.inventory.push(newInventory);
-    this.inventoryUpdated.next([...this.inventory]);
-
+    this.http.post<{message: string}>('http://localhost:3000/api/inventory', newInventory)
+      .subscribe((responseData) => {
+        console.log(responseData.message);
+        this.inventory.push(newInventory);
+        this.inventoryUpdated.next([...this.inventory]);
+      });
   }
 }
