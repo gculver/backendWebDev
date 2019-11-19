@@ -13,7 +13,7 @@ export class DisplayInventoryComponent implements OnInit, OnDestroy {
   inventory: Inventory[] = [];
   private inventorySub: Subscription;
 
-displayedColumns: string[] = ['make', 'model'];
+displayedColumns: string[] = ['make', 'model', 'instock', 'sold', 'difference'];
 dataSource = this.inventory;
 
 constructor(public inventoryService: InventoryService ) {}
