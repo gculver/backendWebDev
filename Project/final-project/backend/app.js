@@ -36,7 +36,7 @@ app.post('/api/inventory', (req, res, next) => {
 
   });
   post.save();
-  console.log(inventory);
+  //console.log(inventory);
   res.status(201).json({
     message: 'Inventory added succesfully'
   });
@@ -71,7 +71,7 @@ app.get('/api/inventory', (req, res, next) => {
     { $sort: { make: 1, _id: 1 } },
 ])
 .then(documents => {
-      console.log(documents);
+      //console.log(documents);
       res.status(200).json({
         message: 'Posts fetched successfully',
         inventories: documents

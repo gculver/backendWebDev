@@ -3,12 +3,14 @@ import { Inventory } from '../inventory.model';
 import { InventoryService } from '../inventory.service';
 import { Subscription } from 'rxjs';
 
+
 @Component({
   selector: 'app-display-inventory',
   templateUrl: './display-inventory.component.html',
   styleUrls: ['./display-inventory.component.css']
 })
 export class DisplayInventoryComponent implements OnInit, OnDestroy {
+
 
   inventory: Inventory[] = [];
   private inventorySub: Subscription;
