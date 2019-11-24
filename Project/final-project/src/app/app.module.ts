@@ -11,6 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './views/users/register/register.component';
 import { RouterModule } from '@angular/router';
+import { LoginComponent } from './views/users/login/login.component';
+import { SignupComponent } from './views/users/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { RouterModule } from '@angular/router';
     HeaderComponent,
     DisplayInventoryComponent,
     AddInventoryComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
