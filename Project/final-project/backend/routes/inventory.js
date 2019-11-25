@@ -1,8 +1,9 @@
 const express = require('express');
 const Inventory = require('../models/inventory');
 const router = express.Router();
+const checkAuth = require('../middleware/check-auth');
 
-router.get('', (req, res, next) => {
+router.get('', checkAuth, (req, res, next) => {
   Inventory.aggregate([{
     $group: {
             _id: "$Model",

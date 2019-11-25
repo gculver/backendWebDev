@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { MatSelectModule, MatCardModule, MatButtonModule, MatToolbarModule, MatTableModule, MatInputModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { DisplayInventoryComponent } from './views/inventory/display-inventory/display-inventory.component';
 import { AddInventoryComponent } from './views/inventory/add-inventory/add-inventory.component';
@@ -13,6 +13,7 @@ import { RegisterComponent } from './views/users/register/register.component';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './views/users/login/login.component';
 import { SignupComponent } from './views/users/signup/signup.component';
+import { AuthInterceptor } from './views/users/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { SignupComponent } from './views/users/signup/signup.component';
     ReactiveFormsModule
 
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
