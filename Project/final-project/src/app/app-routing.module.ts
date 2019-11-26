@@ -5,10 +5,11 @@ import { DisplayInventoryComponent } from './views/inventory/display-inventory/d
 import { AddInventoryComponent } from './views/inventory/add-inventory/add-inventory.component';
 import { LoginComponent } from './views/users/login/login.component';
 import { SignupComponent } from './views/users/signup/signup.component';
+import { AuthGuard } from './views/users/auth.guard';
 
 const routes: Routes = [
-  { path: '' , component: DisplayInventoryComponent },
-  { path: '', component: AddInventoryComponent },
+  { path: '' , component: DisplayInventoryComponent, canActivate: [AuthGuard] }, // canActiveate: [AuthGuard]
+  { path: '', component: AddInventoryComponent, canActivate: [AuthGuard] },
  // { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent},
   { path: 'signup', component: SignupComponent}
@@ -16,6 +17,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }
