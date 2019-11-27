@@ -55,7 +55,8 @@ const IventorySchema = new Schema({
     Odometer: {
         type: String,
         required: false
-    }
+    },
+    creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: false}
 });
 
 module.exports = mongoose.model('Inventory', IventorySchema );
