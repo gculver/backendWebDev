@@ -36,7 +36,12 @@ router.get('', checkAuth, (req, res, next) => {
         message: 'Posts fetched successfully',
         inventories: documents
       });
-    });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Fetching Inventory Failed!'
+      });
+    })
 });
 
 module.exports = router;
