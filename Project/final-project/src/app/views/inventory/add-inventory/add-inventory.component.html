@@ -1,6 +1,6 @@
 <mat-card>
-  <form (submit) = "onAddInventory(postForm)" #postForm = "ngForm">
-      <mat-form-field class="example-full-width">
+  <form [formGroup]="form" (submit) = "onAddInventory()" >
+      <!-- <mat-form-field class="example-full-width">
           <input
             matInput
             placeholder="Year"
@@ -45,13 +45,14 @@
               ngModel
               required>
               <mat-error >Please enter a valid stock number!</mat-error>
-          </mat-form-field>
+          </mat-form-field> -->
 
-        <button
+        <button (click) = "filePicker.click()"
           mat-raised-button
           color="primary"
-          type="submit">Submit Settings
+          type="button">Submit File
         </button>
+        <input type = "file" #filePicker (change)="onFilePicked($event)" />
   </form>
 </mat-card>
 

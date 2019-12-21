@@ -2,6 +2,22 @@ const express = require('express');
 const Inventory = require('../models/inventory');
 const router = express.Router();
 const checkAuth = require('../middleware/check-auth');
+const multer = require("multer");
+const csv = require('csvtojson');
+
+// Below used to upload file form
+const storage = multer.diskStorage({
+  destination: function(req,file, cb) {
+      cb(null, './uploads')
+  },
+  filename: function (req, file, cb) {
+      cb(null, file.fieldname);
+  }
+});
+
+const upload = multer ({ storage: storage });
+const type = upload.single('inventoryFile');
+const csvFilePath = './uploads/inventoryFile';
 
 router.get('', checkAuth, (req, res, next) => {
   Inventory.aggregate([{
@@ -43,5 +59,10 @@ router.get('', checkAuth, (req, res, next) => {
       });
     })
 });
+
+router.post('/add', function(req, res) {
+  csv()
+    .fromFile(csvFilePath)
+})
 
 module.exports = router;

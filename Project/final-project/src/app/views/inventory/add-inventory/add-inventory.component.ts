@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { InventoryService } from '../inventory.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class AddInventoryComponent implements OnInit {
   enteredMake = '';
   enteredModel = '';
   enteredStockNum;
-
+  form: FormGroup;
 
   constructor(public inventoryService: InventoryService) {}
 
@@ -25,6 +25,18 @@ export class AddInventoryComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.form = new FormGroup({
+      upload: new FormControl(null, {validators: [Validators.required]})
+    });
+
   }
+
+  onFilePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({upload: file});
+    this.form.get('upload').updateValueAndValidity();
+    this.inventoryService.addFile(file);
+  }
+
 
 }

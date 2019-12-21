@@ -1,7 +1,23 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-// const Inventory = require('./models/inventory');
+const multer = require('multer');
+const csv = require('csvtojson');
+
+const Inventory = require('./models/inventory');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './backend/uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname);
+  }
+});
+
+const upload = multer({ storage: storage });
+const type = upload.single('soldInventory');
+const csvFilePath = './backend/uploads/soldInventory.csv';
 
 const session = require('express-session');
 
@@ -40,6 +56,40 @@ app.use((req, res, next) => {
   next();
 });
 
+// Testing adding inventory file
+app.post('/add', type, function (req, res) {
+  csv()
+    .fromFile(csvFilePath)
+    .then((jsonObj) => {
+      const myString = ',';
+      const newInventory = [];
+      var counter = jsonObj.length;
+      for (var i = 0; i < counter; i++) {
+        let myString = ' ';
+        let vehicle = jsonObj[i]["Vehicle"].split(myString);
+        //console.log(vehicle[0]);
+        const newInventory = {
+          Year: vehicle[0],
+          Make: vehicle[1],
+          Model: vehicle[2],
+          Trim: vehicle[3],
+          StockNumber: jsonObj[i]["Stock #"],
+          VinNumber: jsonObj[i]["VIN"],
+          Class: jsonObj[i]["Class"],
+          Age: jsonObj[i]["Age"],
+          Body: jsonObj[i]["Body"],
+          Color: jsonObj[i]["Color"],
+          Cost: jsonObj[i]["Cost"],
+          Odometer: jsonObj[i]["Odometer"]
+        };
+        // new Inventory(newInventory)
+        //   .save()
+
+        new Inventory(newInventory).save(); // Saving and overriding mongoose database
+        console.log(i + ' File Uploaded in DB');
+      }
+    });
+});
 app.post('/api/inventory', (req, res, next) => {
   const inventory = new Inventory({
     Year: req.body.year,

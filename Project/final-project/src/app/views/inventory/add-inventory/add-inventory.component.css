@@ -5,4 +5,8 @@ mat-card {
   margin-top: 5px;
 }
 
+input[type="file"] {
+  visibility: hidden;
+}
+
 
