@@ -1,58 +1,21 @@
 <mat-card>
-  <form [formGroup]="form" (submit) = "onAddInventory()" >
-      <!-- <mat-form-field class="example-full-width">
-          <input
-            matInput
-            placeholder="Year"
-            name = "year"
-            ngModel
-            required
-            #title="ngModel"
-            >
-          <mat-error >Please enter a valid year!</mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width">
-            <input
-              matInput
-              placeholder="Make"
-              value=""
-              name="make"
-              ngModel
-              required
-              #make="ngModel"
-              >
-              <mat-error *ngIf="make.invalid">Please enter a valid Make!</mat-error>
-          </mat-form-field>
-        <mat-form-field class="example-full-width">
-            <input
-              matInput
-              placeholder="Model"
-              value=""
-              name="model"
-              ngModel
-              required
-              #model = "ngModel"
-            >
-              <mat-error *ngIf = "model.invalid">Please enter a valid Model!</mat-error>
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-            <input
-              matInput
-              placeholder="Stock Number"
-              value=""
-              name="stockNumber"
-              ngModel
-              required>
-              <mat-error >Please enter a valid stock number!</mat-error>
-          </mat-form-field> -->
-
-        <button (click) = "filePicker.click()"
+  <form [formGroup]="form">
+        <button (click)="filePicker.click()"
           mat-raised-button
           color="primary"
           type="button">Submit File
         </button>
-        <input type = "file" #filePicker (change)="onFilePicked($event)" />
+        <input type="file" #filePicker (change)="onCurrentInventoryPicked($event)" />
   </form>
+
+  <form [formGroup]="soldForm">
+   <button (click) = "filePicker.click()"
+          mat-raised-button
+          color="primary"
+          type="button">Submit Sold Inventory
+        </button>
+        <input type="file" #filePicker (change)="onSoldInventoryPicked($event)"/>
+  </form>
+
 </mat-card>
 

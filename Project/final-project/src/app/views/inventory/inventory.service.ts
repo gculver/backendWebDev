@@ -33,16 +33,45 @@ export class InventoryService {
       });
   }
 
-  addFile(soldInventory: File) {
+  //  // Add In-Stock Inventory File
+  //  addFile(soldInventory: File) {
+  //   const postData = new FormData();
+  //   postData.append('soldInventory', soldInventory);
+  //   this.http.post<{message: string, soldInventory: File}> (
+  //       'http://localhost:3000/add',
+  //       postData
+  //     )
+  //     .subscribe((responseData) => {
+  //         console.log(responseData.message);
+  //         this.router.navigate(['/']);  // Router not navigating back to page
+  //     });
+  // }
+
+  // Add In-Stock Inventory File
+  addcurrentInventory(currentInventory: File) {
     const postData = new FormData();
-    postData.append('soldInventory', soldInventory);
-    this.http.post<{message: string, soldInventory: File}> (
+    postData.append('currentInventory', currentInventory);
+    this.http.post<{message: string, currentInventory: File}> (
         'http://localhost:3000/add',
         postData
       )
       .subscribe((responseData) => {
           console.log(responseData.message);
-          this.router.navigate(['']);
+          this.router.navigate(['/']);  // Router not navigating back to page
+      });
+  }
+
+  // Add sold Inventory File
+  addSoldFile(soldInventory: File) {
+    const postData = new FormData();
+    postData.append('soldInventory', soldInventory);
+    this.http.post<{message: string, soldInventory: File}> (
+        'http://localhost:3000/api/inventory/addSold',
+        postData
+      )
+      .subscribe((responseData) => {
+          console.log(responseData.message);
+          this.router.navigate(['/']);  // Router not navigating back to page
       });
   }
 }
