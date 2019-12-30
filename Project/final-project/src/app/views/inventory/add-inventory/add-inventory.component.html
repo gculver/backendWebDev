@@ -1,21 +1,5 @@
 <mat-card>
-  <form [formGroup]="form">
-        <button (click)="filePicker.click()"
-          mat-raised-button
-          color="primary"
-          type="button">Submit File
-        </button>
-        <input type="file" #filePicker (change)="onCurrentInventoryPicked($event)" />
-  </form>
-
-  <form [formGroup]="soldForm">
-   <button (click) = "filePicker.click()"
-          mat-raised-button
-          color="primary"
-          type="button">Submit Sold Inventory
-        </button>
-        <input type="file" #filePicker (change)="onSoldInventoryPicked($event)"/>
-  </form>
-
+  <app-app-addcurrent-inventory></app-app-addcurrent-inventory>
+  <app-add-sold-inventory></app-add-sold-inventory>
 </mat-card>
 

@@ -10,8 +10,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./display-inventory.component.css']
 })
 export class DisplayInventoryComponent implements OnInit, OnDestroy {
-
-
   inventory: Inventory[] = [];
   private inventorySub: Subscription;
 

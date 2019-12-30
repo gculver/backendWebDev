@@ -52,7 +52,7 @@ export class InventoryService {
     const postData = new FormData();
     postData.append('currentInventory', currentInventory);
     this.http.post<{message: string, currentInventory: File}> (
-        'http://localhost:3000/add',
+        'http://localhost:3000/api/inventory/add',
         postData
       )
       .subscribe((responseData) => {

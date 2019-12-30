@@ -1,0 +1,7 @@
+
+<form [formGroup]="soldForm">
+  <button (click)="filePicker.click()" mat-raised-button color="primary" type="button">Submit Sold Inventory
+  </button>
+  <input type="file" #filePicker (change)="onSoldInventoryPicked($event)" />
+</form>
+

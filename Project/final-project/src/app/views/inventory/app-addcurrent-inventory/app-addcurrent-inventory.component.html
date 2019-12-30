@@ -1,0 +1,8 @@
+<form [formGroup]="form">
+  <button (click)="filePicker.click()"
+    mat-raised-button
+    color="primary"
+    type="button">Submit File
+  </button>
+  <input type="file" #filePicker (change)="onCurrentInventoryPicked($event)" />
+</form>

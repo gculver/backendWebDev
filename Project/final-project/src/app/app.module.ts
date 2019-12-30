@@ -18,6 +18,8 @@ import { AuthInterceptor } from './views/users/auth-interceptor';
 import { AuthGuard } from './views/users/auth.guard';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
+import { AddSoldInventoryComponent } from './views/inventory/add-sold-inventory/add-sold-inventory.component';
+import { AppAddcurrentInventoryComponent } from './views/inventory/app-addcurrent-inventory/app-addcurrent-inventory.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ErrorComponent } from './error/error.component';
     RegisterComponent,
     LoginComponent,
     SignupComponent,
-    ErrorComponent
+    ErrorComponent,
+    AddSoldInventoryComponent,
+    AppAddcurrentInventoryComponent
   ],
   imports: [
     BrowserModule,
